@@ -7,7 +7,7 @@
 -- Set the role to 'recipe_box_app' so the tables created will be owned by that
 -- user.
 
--- YOUR CODE HERE
+SET ROLE recipe_box_app;
 
 
 
@@ -24,7 +24,12 @@
 -- | created     | TIMESTAMP    | NOT NULL, DEFAULT CURRENT_TIMESTAMP |
 -- | updated     | TIMESTAMP    | NOT NULL, DEFAULT CURRENT_TIMESTAMP |
 
--- YOUR CODE HERE
+CREATE table recipes (
+    id SERIAL primary key,
+    title VARCHAR(200) not null,
+    created TIMESTAMP not null default CURRENT_TIMESTAMP,
+    updated TIMESTAMP not null default CURRENT_TIMESTAMP
+);
 
 
 
@@ -46,7 +51,12 @@
 -- | list_order    | INTEGER     | NOT NULL     |
 -- | recipe_id     | INTEGER     | FK, NOT NULL |
 
--- YOUR CODE HERE
+CREATE table instructions (
+    id SERIAL primary key,
+    specification text not null,
+    list_order INTEGER not null,
+    recipe_id INTEGER references recipes(id) not null
+);
 
 
 
@@ -62,7 +72,10 @@
 -- | id          | SERIAL      | PK          |
 -- | name        | VARCHAR(20) | NOT NULL    |
 
--- YOUR CODE HERE
+CREATE table units_of_measure (
+    id Serial primary key,
+    name varchar(20) NOT NULL
+);
 
 
 
@@ -85,7 +98,13 @@
 -- | food_stuff         | VARCHAR(500)  | NOT NULL     |
 -- | recipe_id          | INTEGER       | FK, NOT NULL |
 
--- YOUR CODE HERE
+CREATE table ingredients (
+    id SERIAL PRIMARY KEY,
+    amount NUMERIC(5, 2) NOT NULL,
+    unit_of_measure_id INTEGER references units_of_measure(id) NOT NULL,
+    food_stuff VARCHAR(500) NOT NULL,
+    recipe_id INTEGER references recipes(id) NOT NULL
+);
 
 
 
