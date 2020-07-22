@@ -1,4 +1,4 @@
--- This query needs to insert new data into the "recipes" table.
+-- This query needs to insert new data into the "ingredients" table.
 --
 --   * Insert into the "ingredients" table:
 --     * $1 is amount
@@ -10,4 +10,5 @@
 -- that it inserts the value provided by the user.
 
 
--- YOUR CODE HERE
+INSERT INTO ingredients (amount, unit_of_measure_id, food_stuff, recipe_id)
+    VALUES($1, $2, $3, $4);
